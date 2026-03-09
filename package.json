@@ -1,0 +1,108 @@
+{
+  "name": "quick-highlight",
+  "displayName": "QuickHighLight",
+  "description": "Highlight selected word with chosen color 選択した単語を色分けしてハイライトする VSCode 拡張機能。固定7色＋ユーザー色、QuickPick、ファイルをまたいだハイライトに対応。",
+  "version": "1.0.0",
+  "icon": "icon.png",
+  "publisher": "hanagechan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanagechan/quick-highlight"
+  },
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "keywords": [
+    "highlight",
+    "word highlight",
+    "marker",
+    "code review",
+    "log analysis",
+    "productivity"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "properties": {
+        "highlightWord.colorSets": {
+          "type": "array",
+          "description": "ユーザー定義の色セット。QuickPick に表示されます。",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "background": { "type": "string" },
+              "foreground": { "type": "string" }
+            },
+            "required": ["name", "background", "foreground"]
+          }
+        }
+      }
+    },
+
+    "submenus": [
+      {
+        "id": "highlightWord.menu",
+        "label": "Highlight"
+      }
+    ],
+
+    "commands": [
+      { "command": "highlightWord.applyFixed1", "title": "Caution" },
+      { "command": "highlightWord.applyFixed2", "title": "Deep" },
+      { "command": "highlightWord.applyFixed3", "title": "Emphasis" },
+      { "command": "highlightWord.applyFixed4", "title": "Info" },
+      { "command": "highlightWord.applyFixed5", "title": "Marker" },
+      { "command": "highlightWord.applyFixed6", "title": "OK" },
+      { "command": "highlightWord.applyFixed7", "title": "Review" },
+
+      { "command": "highlightWord.clearAll", "title": "QuickHighLight: Clear All Highlights" },
+      { "command": "highlightWord.pickColor", "title": "QuickHighLight: Choose Color Set" }
+
+    ],
+
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "highlightWord.menu",
+          "group": "navigation"
+        }
+      ],
+      "highlightWord.menu": [
+        { "command": "highlightWord.applyFixed1", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed2", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed3", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed4", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed5", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed6", "group": "1_fixed" },
+        { "command": "highlightWord.applyFixed7", "group": "1_fixed" },
+
+        { "command": "highlightWord.clearAll", "group": "2_clear" },
+        { "command": "highlightWord.pickColor", "group": "3_dynamic" }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.110.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.48.1",
+    "eslint": "^9.39.1",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
